@@ -48,7 +48,19 @@ export async function POST(request) {
     return NextResponse.json({ error: "Message is too long." }, { status: 400 });
   }
 
-  const saved = await prisma.contactMessage.create({ data: { name, email, message } });
+  let saved;
+  try {
+    saved = await prisma.contactMessage.create({ data: { name, email, message } });
+  } catch (err) {
+    // Log the real cause server-side (visible in Vercel's runtime logs) but
+    // never leak database details to the visitor.
+    console.error("Failed to save contact message:", err.message);
+    return NextResponse.json(
+      { error: "We couldn't save your message right now. Please try again in a moment, or email us directly." },
+      { status: 500 }
+    );
+  }
+
   await sendEmailNotification({ name, email, message });
 
   return NextResponse.json({ ok: true, id: saved.id });
