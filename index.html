@@ -50,22 +50,18 @@ nav .btn{padding:11px 24px}
 .lead{font-size:17px;color:var(--mute);max-width:50ch;margin:26px 0 38px;animation:rise 1s .15s both}
 .cta{display:flex;gap:14px;flex-wrap:wrap;animation:rise 1s .3s both}
 @keyframes rise{from{opacity:0;transform:translateY(24px)}}
-/* hero: full-width living background */
-.hero{padding:140px 0 130px;background:linear-gradient(180deg,#fffbe6 0,#fff 100%)}
+/* hero: dark golden dot-terrain background */
+.hero{padding:140px 0 150px;background:radial-gradient(900px 520px at 50% 110%,rgba(255,216,0,.2),transparent 70%),linear-gradient(180deg,#0c0e13,#151821)}
 .hero>canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1}
-.hero::before{content:"";position:absolute;inset:0;z-index:0;background-image:radial-gradient(rgba(17,19,24,.16) 1px,transparent 1.4px);background-size:30px 30px;-webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 45%,#000 20%,transparent 80%);mask-image:radial-gradient(ellipse 70% 70% at 50% 45%,#000 20%,transparent 80%)}
-.blob{position:absolute;border-radius:50%;filter:blur(80px);animation:drift 20s ease-in-out infinite alternate;z-index:0}
-.b1{width:520px;height:520px;left:-140px;top:-180px;background:#ffe45c;opacity:.6}
-.b2{width:460px;height:460px;right:-120px;top:6%;background:#ffd800;opacity:.38;animation-delay:-7s}
-.b3{width:400px;height:400px;left:38%;bottom:-240px;background:#ffeea0;opacity:.7;animation-delay:-12s}
-@keyframes drift{to{transform:translate(70px,46px) scale(1.18)}}
-.spot{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(460px circle at var(--sx,50%) var(--sy,40%),rgba(255,216,0,.28),transparent 62%)}
+.spot{position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(420px circle at var(--sx,50%) var(--sy,60%),rgba(255,216,0,.14),transparent 62%)}
 .hc{position:relative;z-index:2;text-align:center;max-width:1020px}
-.hero h1{font-size:clamp(40px,6.2vw,78px);font-weight:700;letter-spacing:-.035em}
-.hero .lead{margin:28px auto 40px;max-width:58ch;font-size:18px}
+.hero h1{font-size:clamp(40px,6.2vw,76px);font-weight:700;letter-spacing:-.035em;color:#fff}
+.hero .lead{margin:28px auto 40px;max-width:58ch;font-size:18px;color:var(--muteink)}.hero .lead b{color:#fff}
 .hero .cta{justify-content:center}
-.sub{margin:56px 0 0;display:flex;gap:10px 26px;justify-content:center;flex-wrap:wrap;font:500 14.5px Outfit,sans-serif;color:var(--mute);animation:rise 1s .6s both}
-.sub span{display:flex;align-items:center;gap:10px}.sub span::before{content:"";width:7px;height:7px;border-radius:2px;background:var(--yel);box-shadow:0 0 0 3px rgba(255,216,0,.3)}
+.hero .btn.out{color:#fff!important;border-color:rgba(255,255,255,.45)!important}
+.hero .btn.out:hover{background:var(--yel);color:var(--ink)!important;border-color:var(--yel)!important}
+.sub{margin:56px 0 0;display:flex;gap:10px 26px;justify-content:center;flex-wrap:wrap;font:500 14.5px Outfit,sans-serif;color:var(--muteink);animation:rise 1s .6s both}
+.sub span{display:flex;align-items:center;gap:10px}.sub span::before{content:"";width:7px;height:7px;border-radius:2px;background:var(--yel);box-shadow:0 0 0 3px rgba(255,216,0,.25)}
 .pillars{background:var(--ink);color:var(--onink)}
 .pillars .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
 .pillars .wrap>div{padding:30px 24px;border-right:1px solid var(--lineink);font:600 16px Outfit,sans-serif}
@@ -175,7 +171,7 @@ footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-
 </div></header>
 
 <main id="top">
-<div class="hero"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><canvas id="bg" aria-hidden="true"></canvas><div class="spot"></div>
+<div class="hero dk"><canvas id="bg" aria-hidden="true"></canvas><div class="spot"></div>
 <div class="wrap hc">
 <h1>We help your business get found, and get <span class="hi">chosen</span>.</h1>
 <p class="lead">We build <b>websites</b>, design <b>UI &amp; UX</b>, craft <b>brands</b>, run <b>marketing campaigns</b> and <b>digital experiences</b> for businesses that want steady, honest growth.</p>
@@ -266,25 +262,31 @@ var h=document.querySelector('.hero h1'),k=0;
  if(c.nodeType===3){var f=document.createDocumentFragment();c.textContent.split(/(\s+)/).forEach(function(t){if(!t)return;if(/^\s+$/.test(t)){f.appendChild(document.createTextNode(' '));return}var sp=document.createElement('span');sp.className='w';sp.style.animationDelay=(0.15+k++*0.09)+'s';sp.textContent=t;f.appendChild(sp)});c.parentNode.replaceChild(f,c)}
  else if(c.nodeType===1&&!c.classList.contains('w'))wrapW(c)})})(h);
 setTimeout(function(){document.body.classList.add('ready')},300);
-var hero=document.querySelector('.hero'),cv=document.getElementById('bg'),cx=cv.getContext('2d'),W=0,H=0,t=0,mx=-999,my=-999,vis=true,N=10;
-function rs(){var d=Math.min(devicePixelRatio||1,2),r=hero.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0);draw()}
-function draw(){cx.clearRect(0,0,W,H);
-for(var i=0;i<N;i++){var p=i/(N-1),base=H*(.3+p*.5),g=cx.createLinearGradient(0,0,W,0);
-g.addColorStop(0,'rgba(255,200,0,0)');g.addColorStop(.22,'rgba(255,196,0,'+(.75-p*.3).toFixed(2)+')');g.addColorStop(.62,'rgba(17,19,24,'+(.18+p*.06).toFixed(2)+')');g.addColorStop(1,'rgba(255,200,0,0)');
-cx.strokeStyle=g;cx.lineWidth=.8+p*1.7;cx.beginPath();
-for(var x=0;x<=W;x+=7){var k=x/W,y=base+Math.sin(k*3.2+t*.6+i*.55)*34+Math.sin(k*7.1-t*.9+i)*11+Math.sin(k*1.4+t*.35+i*.2)*46*(.4+p);
-var dx=x-mx,dy=y-my,d=Math.sqrt(dx*dx+dy*dy);if(d<240){var q=1-d/240;y+=(dy/(d||1))*q*q*34}
-x===0?cx.moveTo(x,y):cx.lineTo(x,y)}
-cx.stroke()}}
-function loop(){if(vis){t+=.011;draw()}requestAnimationFrame(loop)}
+var hero=document.querySelector('.hero'),cv=document.getElementById('bg'),cx=cv.getContext('2d'),W=0,H=0,t=0,mx=-999,my=-999,vis=true,rip=[],orbs=[],lr=0,la=0;
+function rs(){var d=Math.min(devicePixelRatio||1,2),r=hero.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0);orbs=[];for(var i=0;i<22;i++)orbs.push({x:Math.random()*W,y:Math.random()*H,r:1.5+Math.random()*3.5,s:.15+Math.random()*.35,p:Math.random()*6.28});draw()}
+function draw(){cx.clearRect(0,0,W,H);var COLS=64,ROWS=24,mid=W/2;
+orbs.forEach(function(o){o.y-=o.s;o.x+=Math.sin(t+o.p)*.25;if(o.y<-30){o.y=H+30;o.x=Math.random()*W}var g=cx.createRadialGradient(o.x,o.y,0,o.x,o.y,o.r*5);g.addColorStop(0,'rgba(255,216,0,.5)');g.addColorStop(1,'rgba(255,216,0,0)');cx.fillStyle=g;cx.beginPath();cx.arc(o.x,o.y,o.r*5,0,6.283);cx.fill()});
+for(var j=0;j<ROWS;j++){var f=j/(ROWS-1),pf=Math.pow(f,1.6),by=H*(.54+.5*pf);
+for(var i=0;i<=COLS;i++){var x=mid+(i/COLS-.5)*W*(1.05+1.5*f);
+var h=Math.sin(i*.33+t*1.1+f*6)+.6*Math.sin(i*.17-t*.7+f*3.5)+.4*Math.sin(f*9-t*1.3),y=by-h*(6+30*pf),rp=0;
+for(var k=0;k<rip.length;k++){var q=rip[k],age=t-q.t,dx=x-q.x,dy=y-q.y,e=Math.sqrt(dx*dx+dy*dy)-age*260;rp+=Math.exp(-e*e/1800)*Math.max(0,1-age/2.6)}
+y-=rp*34*(.4+pf);
+var ddx=x-mx,ddy=y-my,dm=Math.sqrt(ddx*ddx+ddy*ddy),hov=dm<170?1-dm/170:0,crest=Math.max(0,(h+1.2)/3.2),
+r=.7+2.3*pf*(.7+.5*crest)+rp*2+hov*3,a=(.14+.55*pf)*(.5+.5*crest),hot=Math.min(1,crest*.9+rp+hov);
+cx.fillStyle=hot>.55?'rgba(255,216,0,'+Math.min(1,a+hot*.5).toFixed(2)+')':'rgba(245,243,234,'+a.toFixed(2)+')';
+cx.beginPath();cx.arc(x,y,r,0,6.283);cx.fill()}}
+rip=rip.filter(function(q){return t-q.t<2.6})}
+function loop(){if(vis){t+=.012;if(t-la>4.2){rip.push({x:W*(.25+Math.random()*.5),y:H*.75,t:t});la=t}draw()}requestAnimationFrame(loop)}
+if(rm){t=2;}
 rs();addEventListener('resize',rs);
 if(!rm){requestAnimationFrame(loop);new IntersectionObserver(function(e){vis=e[0].isIntersecting}).observe(hero);
-hero.addEventListener('pointermove',function(e){var r=hero.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;hero.style.setProperty('--sx',mx+'px');hero.style.setProperty('--sy',my+'px')});
+hero.addEventListener('pointermove',function(e){var r=hero.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top;hero.style.setProperty('--sx',mx+'px');hero.style.setProperty('--sy',my+'px');if(t-lr>.4){rip.push({x:mx,y:my,t:t});lr=t}});
+hero.addEventListener('pointerdown',function(e){var r=hero.getBoundingClientRect();rip.push({x:e.clientX-r.left,y:e.clientY-r.top,t:t})});
 hero.addEventListener('pointerleave',function(){mx=my=-999})}
 })();
 var hd=document.querySelector('header'),secs=[].slice.call(document.querySelectorAll('.hero,.mq,.pillars,section,.band'));
 function hb(){var y=hd.offsetHeight+2,t=null;for(var i=0;i<secs.length;i++){var r=secs[i].getBoundingClientRect();if(r.top<=y&&r.bottom>y){t=secs[i];break}}
-var c='rgba(255,255,255,.7)',k='';if(t){if(t.classList.contains('dk')||t.classList.contains('pillars')){c='rgba(17,19,24,.78)';k='dkh'}else if(t.classList.contains('mq')||t.classList.contains('band')){c='rgba(255,216,0,.82)';k='yh'}else if(t.classList.contains('soft')){c='rgba(250,248,240,.78)'}}
+var c='rgba(255,255,255,.7)',k='';if(t){if(t.classList.contains('dk')||t.classList.contains('pillars')){c='rgba(17,19,24,.92)';k='dkh'}else if(t.classList.contains('mq')||t.classList.contains('band')){c='rgba(255,216,0,.82)';k='yh'}else if(t.classList.contains('soft')){c='rgba(250,248,240,.78)'}}
 hd.style.backgroundColor=c;hd.className=k}
 addEventListener('scroll',hb,{passive:true});hb();
 var pr=document.getElementById('prog');
